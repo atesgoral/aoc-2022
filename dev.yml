@@ -1,0 +1,5 @@
+name: aoc-2022
+type: node
+up:
+  - node:
+      version: 18.12.0
