@@ -3,8 +3,11 @@ import assert from 'node:assert/strict';
 
 import {heredoc, loadInput} from '../loader.js';
 
-const solution = (i) =>
-Math.max(...i.split`\n\n`.map(e=>e.split`\n`.map(Number).reduce((a,c)=>a+c)))
+const part1 = (i) =>
+Math.max(...i.split`\n\n`.map(e=>e.split`\n`.reduce((a,c)=>a*1+c*1,0)))
+
+const part2 = (i) =>
+i.split`\n\n`.map(e=>e.split`\n`.reduce((a,c)=>a*1+c*1,0)).sort((a,b)=>a-b).slice(-3).reduce((a,c)=>a+c)
 
 test('dev', () => {
   const input = heredoc`
@@ -23,14 +26,18 @@ test('dev', () => {
     14804
     12807
   `;
-  const output = solution(input);
+  const output1 = part1(input);
+  const output2 = part2(input);
 
-  assert.strictEqual(output, 42797);
+  assert.strictEqual(output1, 42797);
+  assert.strictEqual(output2, 84559);
 });
 
 test('official', () => {
   const input = loadInput(import.meta);
-  const output = solution(input);
+  const output1 = part1(input);
+  const output2 = part2(input);
 
-  assert.strictEqual(output, 72478);
+  assert.strictEqual(output1, 72478);
+  assert.strictEqual(output2, 210367);
 });
