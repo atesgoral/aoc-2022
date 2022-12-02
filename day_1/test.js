@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {heredoc, loadInput} from '../utils.js';
 
 const part1 = (i) =>
-Math.max(...i.split`\n\n`.map(e=>e.split`\n`.reduce((a,c)=>a*1+c*1,0)))
+Math.max(...(i+0).split`\n\n`.map(e=>eval(e.split`\n`.join`+`)))
 
 const part2 = (i) =>
 i.split`\n\n`.map(e=>e.split`\n`.reduce((a,c)=>a*1+c*1,0)).sort((a,b)=>a-b).slice(-3).reduce((a,c)=>a+c)
