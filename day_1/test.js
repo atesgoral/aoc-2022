@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import {heredoc, loadInput} from '../loader.js';
+import {heredoc, loadInput} from '../utils.js';
 
 const part1 = (i) =>
 Math.max(...i.split`\n\n`.map(e=>e.split`\n`.reduce((a,c)=>a*1+c*1,0)))
