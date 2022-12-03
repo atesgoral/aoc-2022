@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Advent of Code 2022 Solutions",
   "private": true,
+  "engines": {
+    "node": "=>18.12.0"
+  },
   "type": "module",
   "author": "Ateş Göral <ates@magnetiq.com>",
   "license": "ISC"
