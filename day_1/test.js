@@ -11,26 +11,26 @@ const part2 = (i) =>
 
 test('dev', () => {
   const input = heredoc`
-    2003
-    5358
-    1410
-    5380
+    1000
+    2000
+    3000
 
-    3094
-    11126
-    10227
-    7659
-    2491
-    8200
+    4000
 
-    14804
-    12807
+    5000
+    6000
+
+    7000
+    8000
+    9000
+
+    10000
   `;
   const output1 = part1(input);
   const output2 = part2(input);
 
-  assert.strictEqual(output1, 42797);
-  assert.strictEqual(output2, 84559);
+  assert.strictEqual(output1, 24000);
+  assert.strictEqual(output2, 45000);
 });
 
 test('official', () => {
