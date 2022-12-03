@@ -2,6 +2,8 @@
 
 Requires Node.js 18+ to use the built-in test runner.
 
+Place official inputs as an `input.txt` file under each day's folder.
+
 To run all tests:
 
 ```
