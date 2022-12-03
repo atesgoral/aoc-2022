@@ -30,4 +30,3 @@ test('official', () => {
   assert.strictEqual(output1, 12535);
   assert.strictEqual(output2, 15457);
 });
-
