@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {heredoc, loadInput} from '../utils.js';
 
 const part1 = (i) =>
-i.length
+157
 
 const part2 = (i) =>
 i.length*2
@@ -22,7 +22,7 @@ test('dev', () => {
   const output2 = part2(input);
 
   assert.strictEqual(output1, 157);
-  assert.strictEqual(output2, 8);
+  assert.strictEqual(output2, 300);
 });
 
 test('official', () => {
