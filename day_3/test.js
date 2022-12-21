@@ -1,39 +1,27 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import {heredoc, loadInput} from '../utils.js';
+import {heredoc, lines, loadInput, splitAt} from '../utils.js';
 
-// Predefine vars to overcome strict mode
-let b, l, m;
+function priorityOf(item) {
+  const charCode = item.charCodeAt(0);
+
+  if (charCode & 32) {
+    return charCode - 96;
+  } else {
+    return charCode - 38;
+  }
+}
 
 const part1 = (i) =>
-// i.split`\n`.map(
-//   k=>Math.log2(
-//     Number(
-//       (
-//         m=(k,c)=>[...k.substring(b=(l=k.length/2)*c,b+l)]
-//           .map(c=>c.charCodeAt()^64)
-//           .map(c=>(c^32)-(c>>5^1)*6-1)
-//           .reduce((n,b)=>n|1n<<BigInt(b),0n)
-//       )(k,0)
-//       &
-//       m(k,1)))+1|0).reduce((a,b)=>a+b)
-i.split`\n`.map(k=>Math.log2(Number((m=(k,c)=>[...k.substring(b=(l=k.length/2)*c,b+l)].map(c=>c.charCodeAt()^64).map(c=>(c^32)-(c>>5^1)*6-1).reduce((n,b)=>n|1n<<BigInt(b),0n))(k,0)&m(k,1)))+1|0).reduce((a,b)=>a+b)
-
-const part2 = (i) =>
-i.split`\n`.map(
-  k=>[...k]
-    .map(c=>c.charCodeAt()^64)
-    .map(c=>(c^32)-(c>>5^1)*6-1)
-    .reduce((n,b)=>n|1n<<BigInt(b),0n)
-).reduce((a,k,i)=>{
-  if (!i%3) {
-    a.s+=Math.log2(Number(a.b)+1)
-    a.b=0n
-  }
-  a.b&=k
-  return a
-},{s:0,b:0n})
+  lines(i)
+    .map((line) => {
+      const [comp1, comp2] = splitAt(line, line.length / 2)
+        .map((compartment) => new Set([...compartment]));
+      const common = [...comp1.values()].find((item) => comp2.has(item));
+      return common ? priorityOf(common) : 0;
+    })
+    .reduce((sum, priority) => sum + priority);
 
 test('dev', () => {
   const input = heredoc`
@@ -45,17 +33,17 @@ test('dev', () => {
     CrZsJsPPZsGzwwsLwLmpwMDw
   `;
   const output1 = part1(input);
-  const output2 = part2(input);
+  // const output2 = part2(input);
 
   assert.strictEqual(output1, 157);
-  assert.strictEqual(output2, 300);
+  // assert.strictEqual(output2, 300);
 });
 
 test('official', () => {
   const input = loadInput(import.meta);
   const output1 = part1(input);
-  const output2 = part2(input);
+  // const output2 = part2(input);
 
   assert.strictEqual(output1, 7568);
-  assert.strictEqual(output2, 10);
+  // assert.strictEqual(output2, 10);
 });

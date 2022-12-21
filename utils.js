@@ -10,3 +10,11 @@ export function loadInput(meta) {
   const filename = `${dirname(fileURLToPath(meta.url))}/input.txt`;
   return readFileSync(filename, {encoding: 'utf-8'});
 }
+
+export function lines(input) {
+  return input.trim().split('\n');
+}
+
+export function splitAt(s, idx) {
+  return [s.slice(0, idx), s.slice(idx)];
+}
