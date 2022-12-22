@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import {heredoc, lines, loadInput, splitAt} from '../utils.js';
+import {arrayIntersect, heredoc, lines, loadInput, splitAt, add, chunk} from '../utils.js';
 
 function priorityOf(item) {
   const charCode = item.charCodeAt(0);
@@ -16,12 +16,21 @@ function priorityOf(item) {
 const part1 = (i) =>
   lines(i)
     .map((line) => {
-      const [comp1, comp2] = splitAt(line, line.length / 2)
-        .map((compartment) => new Set([...compartment]));
-      const common = [...comp1.values()].find((item) => comp2.has(item));
+      const comps = splitAt(line, line.length >> 1)
+        .map((s) => [...s]);
+      const common = arrayIntersect(...comps)[0];
       return common ? priorityOf(common) : 0;
     })
-    .reduce((sum, priority) => sum + priority);
+    .reduce(add);
+
+const part2 = (i) =>
+  chunk(lines(i).map((s) => [...s]), 3)
+    .reduce(
+      (intersections, rucksacks) => [...intersections, arrayIntersect(...rucksacks)],
+      []
+    )
+    .map((intersection) => priorityOf(intersection[0]))
+    .reduce(add);
 
 test('dev', () => {
   const input = heredoc`
@@ -33,17 +42,17 @@ test('dev', () => {
     CrZsJsPPZsGzwwsLwLmpwMDw
   `;
   const output1 = part1(input);
-  // const output2 = part2(input);
+  const output2 = part2(input);
 
   assert.strictEqual(output1, 157);
-  // assert.strictEqual(output2, 300);
+  assert.strictEqual(output2, 70);
 });
 
 test('official', () => {
   const input = loadInput(import.meta);
   const output1 = part1(input);
-  // const output2 = part2(input);
+  const output2 = part2(input);
 
   assert.strictEqual(output1, 7568);
-  // assert.strictEqual(output2, 10);
+  assert.strictEqual(output2, 2780);
 });
