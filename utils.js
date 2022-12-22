@@ -39,3 +39,29 @@ export function arrayIntersect(...arrays) {
       intersection.filter((value) => array.includes(value))
 	);
 }
+
+export function rangeCompare(range1, range2) {
+  if (range1[1] < range2[0]) {
+    return -1;
+  } else if (range2[1] < range1[0]) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+export function rangeEquals(range1, range2) {
+  return range1[0] === range2[0] && range1[1] === range2[1];
+}
+
+export function rangeOverlap(range1, range2) {
+  if (rangeCompare(range1, range2)) {
+    return [];
+  } else {
+    return [Math.max(range1[0], range2[0]), Math.min(range1[1], range2[1])];
+  }
+}
+
+export function rangeContains(haystack, needle) {
+  return rangeEquals(rangeOverlap(haystack, needle), needle);
+}
