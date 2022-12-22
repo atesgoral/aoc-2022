@@ -3,7 +3,7 @@ import {dirname} from 'path';
 import {readFileSync} from 'fs';
 
 export function heredoc(s) {
-  return s.join('').replace(/^\n/, '').replace(/  /g, '');
+  return s.join('').replace(/^\n/, '').replace(/^    /gm, '');
 }
 
 export function loadInput(meta) {
@@ -12,7 +12,7 @@ export function loadInput(meta) {
 }
 
 export function lines(input) {
-  return input.trim().split('\n');
+  return input.trimEnd().split('\n');
 }
 
 export function splitAt(s, idx) {
