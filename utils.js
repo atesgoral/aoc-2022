@@ -3,7 +3,10 @@ import {dirname} from 'path';
 import {readFileSync} from 'fs';
 
 export function heredoc(s) {
-  return s.join('').replace(/^\n/, '').replace(/^    /gm, '');
+  return s.join('')
+    .replace(/^\n/, '')
+    .replace(/^    /gm, '')
+    .replace(/  $/, '');
 }
 
 export function loadInput(meta) {
