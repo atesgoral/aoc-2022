@@ -18,6 +18,38 @@ export function lines(input) {
   return input.trimEnd().split('\n');
 }
 
+export function cells(input, cast) {
+  return lines(input)
+    .map((line) => line.split('').map((cell) => cast ? cast(cell) : cell));
+}
+
+export function* hscanCells(cells, x, y, dir) {
+  const row = cells[y];
+
+  for (let i = x + dir; i < row.length && i > -1; i += dir) {
+    const cell = row[i];
+    yield {cell, x: i, y};
+  }
+}
+
+export function* vscanCells(cells, x, y, dir) {
+  for (let i = y + dir; i < cells.length && i > -1; i += dir) {
+    const cell = cells[i][x];
+    yield {cell, x, y: i};
+  }
+}
+
+export function* scanCells(cells) {
+  for (let y = 0; y < cells.length; y++) {
+    const row = cells[y];
+
+    for (let x = 0; x < row.length; x++) {
+      const cell = row[x];
+      yield {cell, x, y};
+    }
+  }
+}
+
 export function splitAt(s, idx) {
   return [s.slice(0, idx), s.slice(idx)];
 }
