@@ -50,6 +50,22 @@ export function* scanCells(cells) {
   }
 }
 
+export function vecAdd(vec1, vec2) {
+  return {x: vec1.x + vec2.x, y: vec1.y + vec2.y};
+}
+
+export function vecSub(vec1, vec2) {
+  return {x: vec1.x - vec2.x, y: vec1.y - vec2.y};
+}
+
+export function vecMag({x, y}) {
+  return Math.hypot(x, y);
+}
+
+export function vecToStr({x, y}) {
+  return `(${x},${y})`;
+}
+
 export function splitAt(s, idx) {
   return [s.slice(0, idx), s.slice(idx)];
 }
